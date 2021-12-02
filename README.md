@@ -24,13 +24,34 @@ docker exec -it studentattendance-redis redis-cli
 
 ### Endpoints 
 
-All endpoints, besides creating student and teacher, requires that you are logged in as either student or teacher. When logged in a token is generated, and this should be send as @RequestBody within the following requests. Some endpoints are only available for teachers and not for students. 
+1. All endpoints requires that you are logged in as either student or teacher.
+2. When logged in a token is generated, and this should be send as part of Request Header {Session-Token:"token"} within the following requests. 
+3. Some endpoints are only available for teachers and not for students. 
+4. A teacher is the ONLY ONE, who can create student, teacher, subject and lecture.
 
 ```{r, engine='bash', count_lines}
 localhost:8060/new
 ```
-* Create student[POST]: /students/
 
+* Create student[POST]: /student
+```
+@RequestBody {"name":String, "email":String, "phonenumber":String, "address":String, "city":String, "zipcode":String, "birthdate":String} 
+```
+
+* Create teacher[POST]: /teacher
+```
+@RequestBody {"name":String, "email":String} 
+```
+
+* Create subject[POST]: /subject
+```
+@RequestBody {"name":String, "teacher": {"id":String, "name":String} } 
+```
+
+* Create lecture[POST]: /lecture
+```
+@RequestBody String <i> e.g. 02.12.2021 </i>
+```
 
 
 ```{r, engine='bash', count_lines}
