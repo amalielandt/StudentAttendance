@@ -22,13 +22,15 @@ To execute commands within the redis CLI run:
 docker exec -it studentattendance-redis redis-cli
 ```
 
-### Endpoints
+### Endpoints 
+
+All endpoints, besides creating student and teacher, requires that you are logged in as either student or teacher. When logged in a token is generated, and this should be send as @RequestBody within the following requests. Some endpoints are only available for teachers and not for students. 
 
 ```{r, engine='bash', count_lines}
 localhost:8060/new
 ```
-
 * Create student[POST]: /students/
+
 
 
 ```{r, engine='bash', count_lines}
@@ -36,8 +38,11 @@ localhost:8060/attendance
 ```
 
 * Login as teacher or student[POST]: ```/login/{session}``` <i>session = STUDENT or TEACHER</i>
+* @RequestBody {"email":String, "password":String} 
 
-@RequestBody {"email":String, "password":String} 
+* Retrieve attendance code as student[GET]: ```/{lectureId}```
+* Student sign up for attending subject[POST]: ```/{subjectId}/{studentId}```
+* Student attends lecture of subject[POST]: ```/{attendanceCode}```
 
 ```{r, engine='bash', count_lines}
 localhost:8060/get
