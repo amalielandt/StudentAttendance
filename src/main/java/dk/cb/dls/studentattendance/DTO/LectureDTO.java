@@ -1,5 +1,6 @@
 package dk.cb.dls.studentattendance.DTO;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import dk.cb.dls.studentattendance.models.Lecture;
 import dk.cb.dls.studentattendance.models.Student;
 import dk.cb.dls.studentattendance.models.Subject;
@@ -18,7 +19,6 @@ import java.util.UUID;
 public class LectureDTO {
     private UUID id;
     private String date;
-//    private SubDTO subject;
     private List<SubDTO> attendees = new ArrayList<>();
 
     public LectureDTO(Lecture lecture) {

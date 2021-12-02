@@ -1,7 +1,7 @@
 package dk.cb.dls.studentattendance.controller;
 
-import dk.cb.dls.studentattendance.DTO.LoginDTO;
-import dk.cb.dls.studentattendance.DTO.SubjectDTO;
+import dk.cb.dls.studentattendance.DTO.*;
+import dk.cb.dls.studentattendance.client.LocationClient;
 import dk.cb.dls.studentattendance.models.Lecture;
 import dk.cb.dls.studentattendance.models.Student;
 import dk.cb.dls.studentattendance.models.Subject;
@@ -16,6 +16,10 @@ import dk.cb.dls.studentattendance.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -122,5 +126,56 @@ public class AttendanceController {
             }
         }
         return null;
+    }
+
+
+    @GetMapping("/subject/{subjectId}")
+    public List<LectureAttendanceDTO> getSubjectAttendance(@PathVariable UUID subjectId, @RequestBody String token) {
+        List<LectureAttendanceDTO> lectureAttendance = new ArrayList<>();
+        UUID teacherId = sessionManagement.getSession(Session.TEACHER, token);
+
+        if(teacherId != null) {
+            Optional<Subject> optionalSubject = subjectRepository.findById(subjectId);
+            if(optionalSubject.isPresent())
+            {
+                Subject subject = optionalSubject.get();
+                for (Lecture lecture : subject.getLectures()) {
+                    lectureAttendance.add(new LectureAttendanceDTO(lecture));
+                }
+
+                return lectureAttendance;
+            }
+        }
+        return null;
+    }
+
+    @GetMapping("/student/{studentId}")
+    public List<SubjectAttendanceDTO> getStudentAttendance(@PathVariable UUID studentId, @RequestBody String token) {
+        List<SubjectAttendanceDTO> studentAttendance = new ArrayList<>();
+        UUID teacherID = sessionManagement.getSession(Session.TEACHER, token);
+        UUID studentID = sessionManagement.getSession(Session.STUDENT, token);
+
+        if(studentID != null) {
+            studentId = studentID;
+        }
+        if(studentID != null || teacherID != null) {
+            Optional<Student> optionalStudent = studentRepository.findById(studentId);
+            if(optionalStudent.isPresent())
+            {
+                Student student = optionalStudent.get();
+                for (Subject subject : student.getSubjects()) {
+                    studentAttendance.add(new SubjectAttendanceDTO(subject, student.getId()));
+                }
+                return studentAttendance;
+            }
+        }
+        return null;
+    }
+
+    @GetMapping("/location/")
+    public LocationDTO getIp(HttpServletRequest request) throws IOException {
+        String ip = request.getRemoteAddr();
+        LocationDTO location = LocationClient.getLocation(ip);
+        return location;
     }
 }

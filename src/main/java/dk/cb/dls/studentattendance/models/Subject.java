@@ -78,6 +78,8 @@ public class Subject {
             lecture = new Lecture(this, date);
             lectures.add(lecture);
         }
+
+
         return lecture;
     }
 
@@ -90,6 +92,25 @@ public class Subject {
         }
         return null;
     }
+
+    public int lectureCount() {
+        return lectures.size();
+    }
+
+    public int getStudentAttendance(UUID studentId) {
+        Student student = getStudent(studentId);
+
+        int count = 0;
+        if(student != null) {
+            for (Lecture lecture : lectures) {
+                if(lecture.getAttendee(student.getId()) != null) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
 
     @Override
     public String toString() {

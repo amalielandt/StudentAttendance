@@ -1,5 +1,6 @@
 package dk.cb.dls.studentattendance.DTO;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import dk.cb.dls.studentattendance.models.Subject;
 import dk.cb.dls.studentattendance.models.Teacher;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TeacherDTO {
 
     private UUID id;
@@ -25,7 +27,7 @@ public class TeacherDTO {
         this.id = teacher.getId();
         this.email = teacher.getEmail();
         this.name = teacher.getName();
-        this.password = teacher.getPassword();
+//        this.password = teacher.getPassword();
 
         for (Subject subject : teacher.getSubjects()) {
             this.subjects.add(new SubDTO(subject));

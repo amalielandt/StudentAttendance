@@ -26,16 +26,27 @@ public class Lecture {
     private Subject subject;
 
     @OneToMany
-    @JoinTable(name = "lecture_student", joinColumns = {
+    @JoinTable(name = "lecture_attendee", joinColumns = {
             @JoinColumn(name = "Lecture_id", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "student_id", referencedColumnName = "id")})
     private List<Student> attendees;
+
+    @OneToMany
+    @JoinTable(name = "lecture_student", joinColumns = {
+            @JoinColumn(name = "Lecture_id", referencedColumnName = "id")}, inverseJoinColumns = {
+            @JoinColumn(name = "student_id", referencedColumnName = "id")})
+    private List<Student> students;
 
     public Lecture(Subject subject, Date date) {
         this.id = UUID.randomUUID();
         this.date = Utils.formatter.format(date);
         this.subject = subject;
         this.attendees = new ArrayList();
+        this.students = new ArrayList<>();
+
+        for (Student student : subject.getStudents()) {
+            students.add(student);
+        }
     }
 
     public Lecture() {}
@@ -54,5 +65,22 @@ public class Lecture {
             }
         }
         return null;
+    }
+
+    public Student getStudent(UUID id) {
+        for (Student student: students) {
+            if(student.getId().equals(id)) {
+                return student;
+            }
+        }
+        return null;
+    }
+
+    public int attendanceCount() {
+        return attendees.size();
+    }
+
+    public int studentCount() {
+        return students.size();
     }
 }
