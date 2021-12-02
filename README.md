@@ -1,6 +1,6 @@
 # StudentAttendance
 
-### Made by Sofie Amalie Landt, Amanda Juhl Hansen & Benjamin Aizen Kongshaug
+#### Made by Sofie Amalie Landt, Amanda Juhl Hansen & Benjamin Aizen Kongshaug
 
 To make docker container with volume in project folder run:
 
@@ -21,5 +21,9 @@ To execute commands within the redis CLI run:
 ```{r, engine='bash', count_lines}
 docker exec -it studentattendance-redis redis-cli
 ```
+
+### Endpoints 
+localhost:8060
+
 
  
