@@ -64,7 +64,7 @@ public class AttendanceController {
     }
 
     @GetMapping("/{lectureId}")
-    public String getAttendanceCode(@PathVariable UUID lectureId, @RequestBody String token) {
+    public String getAttendanceCode(@PathVariable UUID lectureId, @RequestHeader("Session-Token") String token) {
         UUID teacherId = sessionManagement.getSession(Session.TEACHER, token);
 
         if(teacherId != null) {
@@ -83,7 +83,7 @@ public class AttendanceController {
     }
 
     @PutMapping("/{subjectId}/{studentId}")
-    public SubjectDTO studentAttendsSubject(@PathVariable UUID subjectId, @PathVariable UUID studentId, @RequestBody String token) {
+    public SubjectDTO studentAttendsSubject(@PathVariable UUID subjectId, @PathVariable UUID studentId, @RequestHeader("Session-Token") String token) {
         UUID teacherId = sessionManagement.getSession(Session.TEACHER, token);
 
         if(teacherId != null) {
@@ -104,7 +104,7 @@ public class AttendanceController {
     }
 
     @PutMapping("/{attendanceCode}")
-    public SubjectDTO studentAttendsLecture(@PathVariable String attendanceCode, @RequestBody String token) {
+    public SubjectDTO studentAttendsLecture(@PathVariable String attendanceCode, @RequestHeader("Session-Token") String token) {
         UUID studentId = sessionManagement.getSession(Session.STUDENT, token);
         UUID lectureId = attendanceManagement.getLectureId(attendanceCode);
 
@@ -130,7 +130,7 @@ public class AttendanceController {
 
 
     @GetMapping("/subject/{subjectId}")
-    public List<LectureAttendanceDTO> getSubjectAttendance(@PathVariable UUID subjectId, @RequestBody String token) {
+    public List<LectureAttendanceDTO> getSubjectAttendance(@PathVariable UUID subjectId, @RequestHeader("Session-Token") String token) {
         List<LectureAttendanceDTO> lectureAttendance = new ArrayList<>();
         UUID teacherId = sessionManagement.getSession(Session.TEACHER, token);
 
@@ -150,7 +150,7 @@ public class AttendanceController {
     }
 
     @GetMapping("/student/{studentId}")
-    public List<SubjectAttendanceDTO> getStudentAttendance(@PathVariable UUID studentId, @RequestBody String token) {
+    public List<SubjectAttendanceDTO> getStudentAttendance(@PathVariable UUID studentId, @RequestHeader("Session-Token") String token) {
         List<SubjectAttendanceDTO> studentAttendance = new ArrayList<>();
         UUID teacherID = sessionManagement.getSession(Session.TEACHER, token);
         UUID studentID = sessionManagement.getSession(Session.STUDENT, token);

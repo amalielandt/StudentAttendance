@@ -35,7 +35,7 @@ public class RetrievingController {
 
 
     @GetMapping("/student/{studentId}")
-    public StudentDTO getStudent(@PathVariable UUID studentId, @RequestBody String token) {
+    public StudentDTO getStudent(@PathVariable UUID studentId, @RequestHeader("Session-Token") String token) {
         UUID teacherID = sessionManagement.getSession(Session.TEACHER, token);
         UUID studentID = sessionManagement.getSession(Session.STUDENT, token);
 
@@ -52,7 +52,7 @@ public class RetrievingController {
     }
 
     @GetMapping("/students")
-    public List<StudentDTO> getStudents(@RequestBody String token) {
+    public List<StudentDTO> getStudents(@RequestHeader("Session-Token") String token) {
         List<StudentDTO> studentDTOs = new ArrayList<>();
         UUID teacherID = sessionManagement.getSession(Session.TEACHER, token);
 
@@ -67,7 +67,7 @@ public class RetrievingController {
     }
 
     @GetMapping("/teacher/{teacherId}")
-    public TeacherDTO getTeacher(@PathVariable UUID teacherId, @RequestBody String token) {
+    public TeacherDTO getTeacher(@PathVariable UUID teacherId, @RequestHeader("Session-Token") String token) {
         UUID teacherID = sessionManagement.getSession(Session.TEACHER, token);
 
         if (teacherID != null) {
@@ -80,7 +80,7 @@ public class RetrievingController {
     }
 
     @GetMapping("/teachers")
-    public List<TeacherDTO> getTeahcers(@RequestBody String token) {
+    public List<TeacherDTO> getTeahcers(@RequestHeader("Session-Token") String token) {
         List<TeacherDTO> teacherDTOS = new ArrayList<>();
         UUID teacherID = sessionManagement.getSession(Session.TEACHER, token);
 
@@ -95,7 +95,7 @@ public class RetrievingController {
     }
 
     @GetMapping("/{studentId}/subjects")
-    public List<StudentSubjectDTO> getStudentSubjects(@PathVariable UUID studentId, @RequestBody String token) {
+    public List<StudentSubjectDTO> getStudentSubjects(@PathVariable UUID studentId, @RequestHeader("Session-Token") String token) {
         List<StudentSubjectDTO> subjectDTOS = new ArrayList<>();
         UUID teacherID = sessionManagement.getSession(Session.TEACHER, token);
         UUID studentID = sessionManagement.getSession(Session.STUDENT, token);
@@ -116,7 +116,7 @@ public class RetrievingController {
     }
 
     @GetMapping("/subject/{subjectId}")
-    public SubjectDTO getSubject(@PathVariable UUID subjectId, @RequestBody String token) {
+    public SubjectDTO getSubject(@PathVariable UUID subjectId, @RequestHeader("Session-Token") String token) {
         UUID teacherID = sessionManagement.getSession(Session.TEACHER, token);
 
         if (teacherID != null) {
@@ -129,7 +129,7 @@ public class RetrievingController {
     }
 
     @GetMapping("/subjects")
-    public List<SubjectDTO> getSubjects(@RequestBody String token) {
+    public List<SubjectDTO> getSubjects(@RequestHeader("Session-Token") String token) {
         List<SubjectDTO> subjectDTOS = new ArrayList<>();
         UUID teacherID = sessionManagement.getSession(Session.TEACHER, token);
 
