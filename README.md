@@ -57,7 +57,11 @@ docker exec -it studentattendance-redis redis-cli
 #### localhost:8060/attendance
 
 
-* Login as teacher or student[POST]: /login/{session} <i>session = STUDENT or TEACHER</i>
+* Login as teacher or student[POST]: /login/{session} 
+```
+session = STUDENT or TEACHER
+```
+
 ```
 @RequestBody {"email":String, "password":String} 
 ```
