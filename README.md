@@ -12,6 +12,10 @@ Go to localhost:8082 and login to database:
  
 <img width="432" alt="Skærmbillede 2021-10-28 kl  13 55 36" src="https://user-images.githubusercontent.com/44894156/139255217-7d1dd14a-103a-45f0-867d-95a345c5761d.png">
 
+In the project, set the Data Structure for H2-database:
+<img width="663" alt="Skærmbillede 2021-12-02 kl  20 53 44" src="https://user-images.githubusercontent.com/47500265/144493476-d8212986-a4d7-4457-aec8-51e98c21101f.png">
+
+
 To make Redis database within a docker container, run:
 ```{r, engine='bash', count_lines}
 docker run --name studentattendance-redis -p 6379:6379 -v redis-data:/data -d redis:alpine
