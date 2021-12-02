@@ -29,9 +29,9 @@ docker exec -it studentattendance-redis redis-cli
 3. Some endpoints are only available for teachers and not for students. 
 4. A teacher is the ONLY ONE, who can create student, teacher, subject and lecture.
 
-```{r, engine='bash', count_lines}
-localhost:8060/new
-```
+
+#### localhost:8060/new
+
 
 * Create student[POST]: /student
 ```
@@ -54,12 +54,11 @@ localhost:8060/new
 ```
 
 
-```{r, engine='bash', count_lines}
-localhost:8060/attendance
-```
+#### localhost:8060/attendance
 
-* Login as teacher or student[POST]: ```/login/{session}``` <i>session = STUDENT or TEACHER</i>
-```{r, engine='bash', count_lines}
+
+* Login as teacher or student[POST]: /login/{session} <i>session = STUDENT or TEACHER</i>
+```
 @RequestBody {"email":String, "password":String} 
 ```
 
@@ -67,9 +66,9 @@ localhost:8060/attendance
 * Student sign up for attending subject[POST]: ```/{subjectId}/{studentId}```
 * Student attends lecture of subject[POST]: ```/{attendanceCode}```
 
-```{r, engine='bash', count_lines}
-localhost:8060/get
-```
+
+#### localhost:8060/get
+
 
 * Retrieve one student[GET]: ```/student/{studentId}```
 * Retrieve all students[GET]: ```/students```
