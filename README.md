@@ -23,10 +23,10 @@ docker exec -it studentattendance-redis redis-cli
 ```
 
 ### Endpoints available on localhost:8060
-
+```{r, engine='bash', count_lines}
 /get
-
-* Retrieve one student[GET]: ```/student/{studentId}```
+```
+* Retrieve one student[GET]: ```{r, engine='bash', count_lines}/student/{studentId}```
 * Retrieve all students[GET]: /students
 
 * Retrieve one teacher[GET]: /teacher/{teacherId}
