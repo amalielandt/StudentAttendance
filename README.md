@@ -22,8 +22,25 @@ To execute commands within the redis CLI run:
 docker exec -it studentattendance-redis redis-cli
 ```
 
-### Endpoints 
-localhost:8060
+### Endpoints available on localhost:8060
+
+/get
+
+* Retrieve one student[GET]: ```/student/{studentId}```
+* Retrieve all students[GET]: /students
+
+* Retrieve one teacher[GET]: /teacher/{teacherId}
+* Retrieve all teachers[GET]: /teachers
+
+* Retrieve one subject[GET]: /subject/{subjectId}
+* Retrieve all subjects[GET]: /subjects
+
+/new
+
+
+Create student[POST]: /students/
+Update student[PUT]: /students/{id}
+Convert money [POST]: /students/convert
 
 
  
