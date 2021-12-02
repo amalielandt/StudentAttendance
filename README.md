@@ -59,7 +59,9 @@ localhost:8060/attendance
 ```
 
 * Login as teacher or student[POST]: ```/login/{session}``` <i>session = STUDENT or TEACHER</i>
-* @RequestBody {"email":String, "password":String} 
+```{r, engine='bash', count_lines}
+@RequestBody {"email":String, "password":String} 
+```
 
 * Retrieve attendance code as student[GET]: ```/{lectureId}```
 * Student sign up for attending subject[POST]: ```/{subjectId}/{studentId}```
