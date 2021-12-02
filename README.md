@@ -5,7 +5,7 @@
 To make docker container with volume in project folder run:
 
 ```{r, engine='bash', count_lines}
-docker run --rm -v "[YOUR_PATH_TO_PROJECT_FOLDER]/StudentAttendence/data:/h2-data" --name h2-studentattendance -d -p 9092:9092 -p 8082:8082 buildo/h2database 
+docker run --rm -v "[YOUR_PATH_TO_PROJECT_FOLDER]/StudentAttendance/data:/h2-data" --name h2-studentattendance -d -p 9092:9092 -p 8082:8082 buildo/h2database 
 ```
 
 Go to localhost:8082 and login to database:
