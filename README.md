@@ -28,16 +28,15 @@ docker exec -it studentattendance-redis redis-cli
 localhost:8060/new
 ```
 
-Create student[POST]: /students/
-Update student[PUT]: /students/{id}
-Convert money [POST]: /students/convert
+* Create student[POST]: /students/
+
 
 ```{r, engine='bash', count_lines}
 localhost:8060/attendance
 ```
 
-* Login as teacher or student[POST]: ```/login/{session}``` 
-<i>session = STUDENT or TEACHER</i>
+* Login as teacher or student[POST]: ```/login/{session}``` <i>session = STUDENT or TEACHER</i>
+@RequestBody {"email":String, "password":String} 
 
 ```{r, engine='bash', count_lines}
 localhost:8060/get
