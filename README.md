@@ -74,22 +74,28 @@ session = STUDENT or TEACHER
 @RequestBody {"email":String, "password":String} 
 ```
 
-* Retrieve attendance code as student[GET]: ```/{lectureId}```
-* Student sign up for attending subject[POST]: ```/{subjectId}/{studentId}```
-* Student attends lecture of subject[POST]: ```/{attendanceCode}```
+* Retrieve attendance code as student[GET]: /{lectureId}
+* Student sign up for attending subject[PUT]: /{subjectId}/{studentId}
+* Student attends lecture of subject[PUT]: /{attendanceCode}
 
+```
+attendanceCode = 5 digits
+```
+
+* Get statistics about attendance for specific subject[GET]: subject/{subjectId}
+* Get statistics about attendance for a specific student in a specific subject[GET]: student/{studentId}
 
 #### localhost:8060/get
 
 
-* Retrieve one student[GET]: ```/student/{studentId}```
-* Retrieve all students[GET]: ```/students```
+* Retrieve one student[GET]: /student/{studentId}
+* Retrieve all students[GET]: /students
 
-* Retrieve one teacher[GET]: ```/teacher/{teacherId}```
-* Retrieve all teachers[GET]: ```/teachers```
+* Retrieve one teacher[GET]: /teacher/{teacherId}
+* Retrieve all teachers[GET]: /teachers
 
-* Retrieve one subject[GET]: ```/subject/{subjectId}```
-* Retrieve all subjects[GET]: ```/subjects```
+* Retrieve one subject[GET]: /subject/{subjectId}
+* Retrieve all subjects[GET]: /subjects
 
 
  
