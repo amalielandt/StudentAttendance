@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Data
@@ -16,6 +18,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SubDTO {
+    @NotEmpty(message = "Id may not be empty")
+    @NotNull(message = "Id may not be null")
     private UUID id;
     private String name;
     private String date;

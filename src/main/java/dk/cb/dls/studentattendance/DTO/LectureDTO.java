@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +20,8 @@ import java.util.UUID;
 @NoArgsConstructor
 public class LectureDTO {
     private UUID id;
+    @NotEmpty(message = "Date may not be empty")
+    @NotNull(message = "Date may not be null")
     private String date;
     private List<SubDTO> attendees = new ArrayList<>();
 

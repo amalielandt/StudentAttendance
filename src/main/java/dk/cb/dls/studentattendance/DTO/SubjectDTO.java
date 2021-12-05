@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -17,7 +19,11 @@ import java.util.UUID;
 public class SubjectDTO {
 
     private UUID id;
+    @NotEmpty(message = "Name may not be empty")
+    @NotNull(message = "Name may not be null")
     private String name;
+    @NotEmpty(message = "Teacher may not be empty")
+    @NotNull(message = "Teacher may not be null")
     private SubDTO teacher;
     private List<SubDTO> students = new ArrayList<>();
     private List<LectureDTO> lectures = new ArrayList<>();

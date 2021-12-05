@@ -1,14 +1,24 @@
 package dk.cb.dls.studentattendance.DTO;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class LoginDTO {
+    @NotEmpty(message = "Email may not be empty")
+    @NotNull(message = "Email may not be null")
     private String email;
+    @NotEmpty(message = "Password may not be empty")
+    @NotNull(message = "Password may not be null")
     private String password;
 
     public String hash() {

@@ -80,7 +80,7 @@ public class RetrievingController {
     }
 
     @GetMapping("/teachers")
-    public List<TeacherDTO> getTeahcers(@RequestHeader("Session-Token") String token) {
+    public List<TeacherDTO> getTeachers(@RequestHeader("Session-Token") String token) {
         List<TeacherDTO> teacherDTOS = new ArrayList<>();
         UUID teacherID = sessionManagement.getSession(Session.TEACHER, token);
 

@@ -1,8 +1,13 @@
 package dk.cb.dls.studentattendance.redis;
 
+import com.sun.istack.NotNull;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Response;
 import redis.clients.jedis.Transaction;
+import redis.clients.jedis.exceptions.JedisException;
+
+import java.util.List;
+import java.util.Map;
 
 public class JedisClient {
     private static JedisClient instance;
@@ -18,19 +23,52 @@ public class JedisClient {
         this.jedis = new Jedis("localhost", 6379);
     }
 
-    public boolean setWithExpire(String key, String value, long expire) {
+    public void setWithExpire(String key, String value, long expire) throws JedisException {
         try (Transaction transaction = jedis.multi()) {
             transaction.set(key, value);
-            Response<Long> success = transaction.expire(key, expire);
-            transaction.exec();
+            transaction.expire(key, expire);
+            List<Object> response = transaction.exec();
+            transaction.close();
 
-            return success.get() == 1;
+            if(!response.get(0).equals("OK")) {
+                throw new JedisException("Key " + key + " could not be set in Redis");
+            }
+            else if((Long) response.get(1) == 0) {
+                throw new JedisException("Expire: " + expire +  " could not be set on key " + key);
+            }
         }
     }
 
-    public boolean set(String key, String value) {
+    public void setMultiWithExpire(Map<String, String> inputs, long expire) throws JedisException {
+        try (Transaction transaction = jedis.multi()) {
+            for (Map.Entry<String, String> entry : inputs.entrySet()) {
+                transaction.set(entry.getKey(), entry.getValue());
+                transaction.expire(entry.getKey(), expire);
+            }
+            List<Object> responses = transaction.exec();
+            transaction.close();
+
+            for (int i = 0; i < responses.size(); i++)
+            {
+                if(i % 2 == 0) {
+                    if(!responses.get(i).equals("OK")) {
+                        throw new JedisException("Key could not be set in Redis");
+                    }
+                }
+                else if( i % 2 == 1 ) {
+                    if((Long) responses.get(i) == 0) {
+                        throw new JedisException("Expire " + expire + " could not be on key ");
+                    }
+                }
+            }
+        }
+    }
+
+    public void set(String key, String value) throws JedisException {
         String success = jedis.set(key, value);
-        return success.equals("OK");
+        if(!success.equals("OK")) {
+            throw new JedisException("Key " + key + " could not be set in Redis");
+        }
     }
 
     public String get(String key) {

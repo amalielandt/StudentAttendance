@@ -1,5 +1,6 @@
 package dk.cb.dls.studentattendance.controller;
 
+import dk.cb.dls.studentattendance.DTO.ExceptionDTO;
 import dk.cb.dls.studentattendance.DTO.StudentDTO;
 import dk.cb.dls.studentattendance.DTO.SubjectDTO;
 import dk.cb.dls.studentattendance.DTO.TeacherDTO;
@@ -35,16 +36,21 @@ public class CreationController {
     LectureRepository lectureRepository;
 
     @PostMapping("/student")
-    public StudentDTO newStudent(@RequestBody StudentDTO studentDTO, @RequestHeader("Session-Token") String token) {
-        UUID teacherId = sessionManagement.getSession(Session.TEACHER, token);
+    public StudentDTO newStudent(@RequestBody StudentDTO studentDTO, @RequestHeader("Session-Token") String token) throws ExceptionDTO {
+        try {
+            UUID teacherId = sessionManagement.getSession(Session.TEACHER, token);
 
-        if(teacherId != null) {
-            Student student = new Student(studentDTO);
-            studentRepository.save(student);
-            Optional<Student> optionalStudent = studentRepository.findById(student.getId());
-            return new StudentDTO(optionalStudent.get());
+            if (teacherId != null) {
+                Student student = new Student(studentDTO);
+                studentRepository.save(student);
+                Optional<Student> optionalStudent = studentRepository.findById(student.getId());
+                return new StudentDTO(optionalStudent.get());
+            } else {
+                throw new NullPointerException("Teacher not logged in");
+            }
+        } catch (Exception e) {
+            throw new ExceptionDTO(500, e.getMessage());
         }
-        return null;
     }
 
     @PostMapping("/teacher")
@@ -57,7 +63,9 @@ public class CreationController {
             Optional<Teacher> optionalTeacher = teacherRepository.findById(teacher.getId());
             return new TeacherDTO(optionalTeacher.get());
         }
-        return null;
+        else {
+            throw new NullPointerException("Teacher not logged in");
+        }
     }
 
     @PostMapping("/subject")
@@ -75,8 +83,11 @@ public class CreationController {
                 Optional<Subject> optionalSubject = subjectRepository.findById(subject.getId());
                 return new SubjectDTO(optionalSubject.get());
             }
+            return null;
         }
-        return null;
+        else {
+            throw new NullPointerException("Teacher not logged in");
+        }
     }
 
     @PostMapping("/lecture/{subjectId}")
@@ -92,7 +103,10 @@ public class CreationController {
                 optionalSubject = subjectRepository.findById(subject.getId());
                 return new SubjectDTO(optionalSubject.get());
             }
+            return null;
         }
-        return null;
+        else {
+            throw new NullPointerException("Teacher not logged in");
+        }
     }
 }
