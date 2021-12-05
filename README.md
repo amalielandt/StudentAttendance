@@ -87,12 +87,12 @@ attendanceCode = 5 digits
 
 #### localhost:8060/get
 
+* Retrieve one teacher[GET]: /teacher/{teacherId}
+* Retrieve all teachers[GET]: /teachers
 
 * Retrieve one student[GET]: /student/{studentId}
 * Retrieve all students[GET]: /students
-
-* Retrieve one teacher[GET]: /teacher/{teacherId}
-* Retrieve all teachers[GET]: /teachers
+* Retrieve subjects for specific student[GET]: /{studentId}/subjects
 
 * Retrieve one subject[GET]: /subject/{subjectId}
 * Retrieve all subjects[GET]: /subjects
