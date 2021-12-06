@@ -3,6 +3,7 @@ package dk.cb.dls.studentattendance.client;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dk.cb.dls.studentattendance.DTO.LocationDTO;
+import dk.cb.dls.studentattendance.errorhandling.LocationException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ public class LocationClient {
     private static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private final static String accesskey = "2bb4c470b78998b22bfae3b5016602c7";
 
-    public static LocationDTO getLocation(String ip) throws IOException {
+    public static LocationDTO getLocation(String ip) throws LocationException {
         try {
         URL url = new URL("http://api.ipstack.com/" + ip + "?access_key=" + accesskey );
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -33,11 +34,11 @@ public class LocationClient {
 
         } catch (IOException e)
         {
-            throw new IOException("Could not retrieve location for ip: " + ip + " with cause: " + e.getMessage());
+            throw new LocationException("Could not retrieve location for ip: " + ip + " with cause: " + e.getMessage());
         }
     }
 
-    public static String getIp() throws IOException {
+    public static String getIp() throws LocationException {
         try {
             URL url = new URL("https://api.ipify.org" );
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -53,7 +54,7 @@ public class LocationClient {
 
         } catch (IOException e)
         {
-            throw new IOException("Could not retrieve Ip with cause: " + e.getMessage());
+            throw new LocationException("Could not retrieve Ip with cause: " + e.getMessage());
         }
 
     }

@@ -18,5 +18,4 @@ public class LectureAttendanceDTO {
         this.attendance = lecture.attendanceCount();
         this.students = lecture.studentCount();
     }
-
 }

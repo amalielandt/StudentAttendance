@@ -6,9 +6,7 @@ import dk.cb.dls.studentattendance.models.Teacher;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -20,14 +18,11 @@ import java.util.UUID;
 public class TeacherDTO {
 
     private UUID id;
-    @NotEmpty(message = "Email may not be empty")
-    @NotNull(message = "Email may not be null")
+    @NotBlank(message = "Email must be provided")
     private String email;
-    @NotEmpty(message = "Password may not be empty")
-    @NotNull(message = "Password may not be null")
+    @NotBlank(message = "Password must be provided")
     private String password;
-    @NotEmpty(message = "Name may not be empty")
-    @NotNull(message = "Name may not be null")
+    @NotBlank(message = "Name must be provided")
     private String name;
     private List<SubDTO> subjects = new ArrayList<>();
 

@@ -4,7 +4,6 @@ import dk.cb.dls.studentattendance.models.Subject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.UUID;
 
 @Data

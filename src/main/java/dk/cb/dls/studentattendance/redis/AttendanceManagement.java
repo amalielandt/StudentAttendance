@@ -1,5 +1,6 @@
 package dk.cb.dls.studentattendance.redis;
 
+import dk.cb.dls.studentattendance.errorhandling.JedisClientException;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.exceptions.JedisException;
 
@@ -19,7 +20,7 @@ public class AttendanceManagement implements IAttendanceManagement {
     }
 
     @Override
-    public String setAttendanceCode(UUID lectureId) throws JedisException {
+    public String setAttendanceCode(UUID lectureId) throws JedisClientException {
         SecureRandom random = new SecureRandom();
         int num = random.nextInt(100000);
         String attendanceCode = String.format("%05d", num);
@@ -29,7 +30,7 @@ public class AttendanceManagement implements IAttendanceManagement {
     }
 
     @Override
-    public UUID getLectureId(String attendanceCode) {
+    public UUID getLectureId(String attendanceCode) throws JedisClientException {
         String id = jedis.get("attendance:"+attendanceCode);
         if(id != null) {
             return UUID.fromString(id);
