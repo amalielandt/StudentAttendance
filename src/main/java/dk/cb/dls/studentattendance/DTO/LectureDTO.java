@@ -17,7 +17,8 @@ import java.util.UUID;
 public class LectureDTO {
     private UUID id;
     @NotBlank(message = "Date must be provided")
-    @Pattern(message="Date must be given in pattern: dd.mm.yyyy", regexp = "^[0,1,2,3][0,1-9].[0,1][0,1-9].[1,2][0,1,8,9][0,1-9][0,1-9]$", flags = Pattern.Flag.UNICODE_CASE)
+    @Pattern(message="Date must be given in pattern: dd.mm.yyyy",
+            regexp = "^[0,1,2,3][0,1-9].[0,1][0,1-9].[1,2][0,1,8,9][0,1-9][0,1-9]$", flags = Pattern.Flag.UNICODE_CASE)
     private String date;
     private List<SubDTO> attendees = new ArrayList<>();
 

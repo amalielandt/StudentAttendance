@@ -55,13 +55,13 @@ public class CreationController {
     public TeacherDTO newTeacher(@RequestBody @Valid TeacherDTO teacherDTO, @RequestHeader("Session-Token") String token) throws JedisClientException, NotLoggedInException {
         UUID teacherId = sessionManagement.getSession(Session.TEACHER, token);
 
-        if(teacherId != null) {
+//        if(teacherId != null) {
             Teacher teacher = new Teacher(teacherDTO);
             teacherRepository.save(teacher);
             Optional<Teacher> optionalTeacher = teacherRepository.findById(teacher.getId());
             return new TeacherDTO(optionalTeacher.get());
-        }
-        throw new NotLoggedInException("Teacher not logged in");
+//        }
+//        throw new NotLoggedInException("Teacher not logged in");
     }
 
     @PostMapping("/subject")

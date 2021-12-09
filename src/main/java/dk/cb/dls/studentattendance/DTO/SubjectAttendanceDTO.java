@@ -18,7 +18,7 @@ public class SubjectAttendanceDTO {
     public SubjectAttendanceDTO(Subject subject, UUID studentId) {
 
         this.name = subject.getName();
-        this.teacher = subject.getTeacher().getName();
+        this.teacher = subject.getTeacher().getFullName();
         this.attendance = subject.getStudentAttendance(studentId);
         this.lectures = subject.lectureCount();
     }

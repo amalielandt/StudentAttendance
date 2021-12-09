@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +20,7 @@ public class SubjectDTO {
 
     private UUID id;
     @NotBlank(message = "Name must be provided")
+    @Size(min = 2, max = 40, message = "Name must be minimum 2 and maximum 40 characters long")
     private String name;
     @NotNull(message = "Teacher can not be null")
     private SubDTO teacher;

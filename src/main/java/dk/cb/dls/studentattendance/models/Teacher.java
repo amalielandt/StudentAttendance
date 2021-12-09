@@ -22,21 +22,14 @@ public class Teacher {
     @Column(unique = true)
     private String email;
     private String password;
-    private String name;
+    private String fullName;
 
     @OneToMany(mappedBy = "teacher", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Subject> subjects;
 
-    //Only used for Unit testing
-    public Teacher(String name) {
+    public Teacher(String fullName, String email, String password) {
         this.id = UUID.randomUUID();
-        this.name = name;
-        this.subjects = new ArrayList();
-    }
-
-    public Teacher(String name, String email, String password) {
-        this.id = UUID.randomUUID();
-        this.name = name;
+        this.fullName = fullName;
         this.email = email;
         this.password = hash(password);
         this.subjects = new ArrayList();
@@ -46,7 +39,7 @@ public class Teacher {
 
     public Teacher(TeacherDTO teacher) {
         this.id = UUID.randomUUID();
-        this.name = teacher.getName();
+        this.fullName = teacher.getFullName();
         this.email = teacher.getEmail();
         this.password = hash(teacher.getPassword());
         this.subjects = new ArrayList();
@@ -74,14 +67,14 @@ public class Teacher {
             mul = (i % 4 == 0) ? 1 : mul * 256;
             sum += password.charAt(i) * mul;
         }
-        return Long.toString(Math.abs(sum) % 3000);
+        return Long.toString(Math.abs(sum) % 99999);
     }
 
     @Override
     public String toString() {
         return "Teacher{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + fullName + '\'' +
                 '}';
     }
 }

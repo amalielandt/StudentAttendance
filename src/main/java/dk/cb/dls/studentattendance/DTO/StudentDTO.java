@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,34 +20,28 @@ import java.util.UUID;
 public class StudentDTO {
 
     private UUID id;
-    @NotBlank(message = "Name must be provided")
-    private String name;
+    @NotBlank(message = "Full name must be provided")
+    @Pattern(message="Full name must contain both firstname and lastname",
+            regexp = "^\\w* \\w*.*$", flags = Pattern.Flag.UNICODE_CASE)
+    private String fullName;
     @NotBlank(message = "Email must be provided")
+    @Pattern(message="Email not valid format",
+            regexp = "^(?:[a-z0-9!#$%&'+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])$",
+            flags = Pattern.Flag.UNICODE_CASE)
     private String email;
     @NotBlank(message = "Password must be provided")
+    @Size(min = 4, message = "Password must be minimum 4 characters long")
     private String password;
     @NotBlank(message = "Phonenumber must be provided")
+    @Size(min = 8, max = 8, message = "Phonenumber must be 8 digits long")
     private String phonenumber;
-    @NotBlank(message = "Address must be provided")
-    private String address;
-    @NotBlank(message = "City must be provided")
-    private String city;
-    @NotBlank(message = "Zipcode must be provided")
-    private String zipcode;
-    @NotBlank(message = "Birthdate must be provided")
-    @Pattern(message="Birthdate must be given in pattern: dd.mm.yyyy", regexp = "^[0,1,2,3][0,1-9].[0,1][0,1-9].[1,2][0,1,8,9][0,1-9][0,1-9]$", flags = Pattern.Flag.UNICODE_CASE)
-    private String birthdate;
     private List<SubDTO> subjects = new ArrayList<>();
 
     public StudentDTO(Student student) {
         this.id = student.getId();
-        this.name = student.getName();
+        this.fullName = student.getFullName();
         this.email = student.getEmail();
         this.phonenumber = student.getPhonenumber();
-        this.address = student.getAddress();
-        this.city = student.getCity();
-        this.zipcode = student.getZipcode();
-        this.birthdate = student.getBirthdate();
 
         for (Subject subject : student.getSubjects()) {
             this.subjects.add(new SubDTO(subject));

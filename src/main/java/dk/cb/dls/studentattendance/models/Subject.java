@@ -24,7 +24,6 @@ public class Subject {
     @Column(unique = true)
     private String name;
 
-
     @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(name = "subject_student", joinColumns = {
             @JoinColumn(name = "subject_id", referencedColumnName = "id")}, inverseJoinColumns = {

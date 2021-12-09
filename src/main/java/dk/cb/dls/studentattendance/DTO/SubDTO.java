@@ -23,12 +23,12 @@ public class SubDTO {
 
     public SubDTO(Student student) {
         this.id = student.getId();
-        this.name = student.getName();
+        this.name = student.getFullName();
     }
 
     public SubDTO(Teacher teacher) {
         this.id = teacher.getId();
-        this.name = teacher.getName();
+        this.name = teacher.getFullName();
     }
 
     public SubDTO(Subject subject) {
