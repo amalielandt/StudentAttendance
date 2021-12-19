@@ -149,6 +149,7 @@ public class AttendanceController {
                 for (Lecture lecture : subject.getLectures()) {
                     lectureAttendance.add(new LectureAttendanceDTO(lecture));
                 }
+                return lectureAttendance;
             }
             throw new NotFoundException("Subject with id: " + subjectId + " not found");
         }
@@ -172,6 +173,7 @@ public class AttendanceController {
                 for (Subject subject : student.getSubjects()) {
                     studentAttendance.add(new SubjectAttendanceDTO(subject, student.getId()));
                 }
+                return studentAttendance;
             }
             throw new NotFoundException("Student with id: " + studentId + " not found");
         }
